@@ -33,10 +33,9 @@ class Login extends CI_Controller {
 			foreach ($checking as $apps) {
                 
                 $session_data = array(
-                    'apps_id' 		=> $apps->id_user,
+                    'apps_id' 		=> $apps->id,
                     'apps_username' => $apps->username,
                     'apps_nama' 	=> $apps->full_name,
-                    'apps_foto' 	=> $apps->image
                 );
                 //set session userdata
                 $this->session->set_userdata($session_data);
