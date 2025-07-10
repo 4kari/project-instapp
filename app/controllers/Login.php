@@ -7,7 +7,7 @@ class Login extends CI_Controller {
 	{
 		//check session
 		if($this->session->userdata("apps_id")){
-			redirect("admin/dashboard");
+			redirect("home");
 		}
 
 		//buat variabel data array

@@ -13,6 +13,9 @@ class Posts extends CI_Controller {
 		if(!$this->session->userdata('apps_id')){
 			redirect("login");
 		}
+		$this->load->view('part/header');
+		$this->load->view('layout/web/posts/posts');
+		$this->load->view('part/footer');
 		//digunakan untuk menampilkan mypost
 	}
 	public function get_data(){
