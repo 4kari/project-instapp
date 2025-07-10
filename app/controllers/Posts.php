@@ -7,6 +7,8 @@ class Posts extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('m_postingan');
+        $this->load->model('m_like');
+        $this->load->model('m_comment');
     }
 	public function index()
 	{
@@ -19,13 +21,13 @@ class Posts extends CI_Controller {
 		$this->load->view('part/header',$data);
 		$this->load->view('layout/web/posts/posts');
 		$this->load->view('part/footer');
-		//digunakan untuk menampilkan mypost
 	}
 	public function get_data(){
 		$data = $this->m_postingan->get_data();
 		echo json_encode($data);
 	}
 	public function likepost(){
+		//digunakan untuk penanda tidak ada session user
 		if(!$this->session->userdata('apps_id')){
 			echo json_encode([
 				'status' => 'redirect',
@@ -37,13 +39,9 @@ class Posts extends CI_Controller {
 		$user_id = $this->session->userdata('apps_id');//userid
 
 		// Cek apakah sudah like sebelumnya
-		$cek = $this->db->get_where('tbl_like', ['post_id' => $post_id, 'user_id' => $user_id])->row();
+		$cek = $this->m_like->get_data_byid($post_id,$user_id);
 		if (!$cek) {
-			$this->db->insert('tbl_like', [
-				'post_id' => $post_id,
-				'user_id' => $user_id,
-				'created_at' => date('Y-m-d H:i:s')
-			]);
+			$this->m_like->insert($post_id,$user_id);
 			echo json_encode(['status' => 'success']);
 		} else {
 			echo json_encode(['status' => 'already']);
@@ -62,12 +60,13 @@ class Posts extends CI_Controller {
 		$user_id = $this->session->userdata('apps_id');
 
 		if ($post_id && $comment && $user_id) {
-			$this->db->insert('tbl_comment', [
+			$data = [
 				'post_id' => $post_id,
 				'user_id' => $user_id,
 				'comment' => $comment,
 				'created_at' => date('Y-m-d H:i:s')
-			]);
+			];
+			$this->m_comment->insert($data);
 			echo json_encode(['status' => 'success']);
 		} else {
 			echo json_encode(['status' => 'error']);
@@ -103,7 +102,6 @@ class Posts extends CI_Controller {
 				$image_name = 'uploads/postingan/' . $uploaded['file_name'];
 			} else {
 				$data['error'] = $this->upload->display_errors();
-				var_dump($config, $data);die();
 				$this->load->view('part/header', $data);
 				$this->load->view('layout/web/posts/posts');
 				$this->load->view('part/footer');
