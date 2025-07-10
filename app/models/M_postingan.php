@@ -7,12 +7,12 @@ class M_postingan extends CI_model{
 	public function get_data()
 	{
 		$this->db->select('
-			u.id AS user_id,
-			u.full_name AS user_nama,
-			p.id AS post_id,
-			p.content AS post_content,
-			p.created_at AS post_waktu,
-			COUNT(l.id) AS total_like
+			u.id as user_id,
+			u.full_name as user_nama,
+			p.id as post_id,
+			p.content as post_content,
+			p.created_at as post_waktu,
+			COUNT(l.id) as total_like
 		');
 		$this->db->from('postingan p');
 		$this->db->join('tbl_user u', 'p.user_id = u.id');
@@ -20,9 +20,24 @@ class M_postingan extends CI_model{
 		$this->db->group_by('p.id');
 		$this->db->order_by('p.created_at', 'DESC');
 
-		$query = $this->db->get();
-		$result = $query->result_array();
+		$posts = $this->db->get()->result();
 
-		return $result;
+		$finalPosts = [];
+		foreach ($posts as $p) {
+			// Ambil komentar terbaru dari tbl_comment
+			$comments = $this->db
+							->select('c.comment, u.full_name')
+							->from('tbl_comment c')
+							->join('tbl_user u', 'c.user_id = u.id')
+							->where('c.post_id', $p->post_id)
+							->order_by('c.created_at', 'DESC')
+							->limit(3)
+							->get()
+							->result();
+
+			$p->comments = $comments;
+			$finalPosts[] = $p;
+		}
+		return $finalPosts;
 	}
 }

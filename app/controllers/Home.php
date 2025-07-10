@@ -17,7 +17,7 @@ class Home extends CI_Controller {
 		);
 		//load view dengan data
 		$this->load->view('part/header', $data);
-		$this->load->view('layout/web/home/data');
+		$this->load->view('layout/web/home/data2');
 		$this->load->view('part/footer');
 	}
 	public function getdatapost(){
