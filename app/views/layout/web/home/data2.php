@@ -38,8 +38,9 @@ function loadPosts() {
                                 </div>
                             </div>
 
-                            <div class="card-image">
-                                <p class="text-center">${post.post_content}</p>
+                            <div class="card-image text-center">
+                                ${post.image ? `<img src="<?= base_url(); ?>${post.image}" class="img-responsive" style="display:block; margin:10px auto; max-height:300px;">` : ''}
+                                <p>${post.post_content}</p>
                             </div>
 
                             <div class="card-action">
@@ -81,6 +82,8 @@ function likePost(postId) {
     .then(data => {
         if (data.status === 'success') {
             loadPosts();
+        }else if(data.status === 'redirect'){
+            window.location.href = data.redirect_url;
         } else {
             alert('Gagal Like');
         }
@@ -108,11 +111,14 @@ function submitComment(postId) {
     .then(data => {
         if (data.status === 'success') {
             loadPosts();
+        } else if (data.status === 'redirect') {
+            window.location.href = data.redirect_url;
         } else {
             alert('Gagal Kirim Komentar');
         }
     });
 }
+
 // Auto-load posts saat halaman dibuka
 document.addEventListener('DOMContentLoaded', loadPosts);
 </script>

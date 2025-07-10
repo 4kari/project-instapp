@@ -3,7 +3,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_postingan extends CI_model{
 
-	//fungsi check login
 	public function get_data()
 	{
 		$this->db->select('
@@ -12,13 +11,14 @@ class M_postingan extends CI_model{
 			p.id as post_id,
 			p.content as post_content,
 			p.created_at as post_waktu,
+			p.image,
 			COUNT(l.id) as total_like
 		');
 		$this->db->from('postingan p');
 		$this->db->join('tbl_user u', 'p.user_id = u.id');
 		$this->db->join('tbl_like l', 'p.id = l.post_id', 'left');
 		$this->db->group_by('p.id');
-		$this->db->order_by('p.created_at', 'DESC');
+		$this->db->order_by('p.id', 'DESC');
 
 		$posts = $this->db->get()->result();
 
@@ -40,4 +40,7 @@ class M_postingan extends CI_model{
 		}
 		return $finalPosts;
 	}
+	public function insert_post($data) {
+        return $this->db->insert('postingan', $data);
+    }
 }

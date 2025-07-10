@@ -10,29 +10,20 @@
             <div class="card">
                 <div class="card-content">
 
-                    <?php echo form_open('posts/store') ?>
-
+                    <?php echo form_open_multipart('posts/store') ?>
                         <div class="form-group">
                             <label for="content"><i class="fa fa-pencil"></i> ISI POSTINGAN</label>
-                            <textarea name="content" id="content" class="form-control" rows="5" placeholder="Apa yang Anda pikirkan?" required></textarea>
+                            <textarea name="content" id="content" class="form-control" rows="4" placeholder="Apa yang Anda pikirkan?" required></textarea>
                         </div>
 
                         <div class="form-group">
-                            <?php if (isset($error)) { ?>
-                                <div class="alert alert-danger" role="alert">
-                                    <?php echo $error; ?>
-                                </div>
-                            <?php } ?>
+                            <label for="image"><i class="fa fa-image"></i> GAMBAR (Opsional)</label>
+                            <input type="file" name="image" class="form-control">
                         </div>
 
                         <div class="text-center">
-                            <button type="submit" class="btn btn-md btn-primary" style="border-radius: 25px;">
-                                <i class="fa fa-paper-plane"></i> Posting
-                            </button>
-
-                            <a href="<?php echo base_url('home'); ?>" class="btn btn-md btn-default" style="border-radius: 25px;">
-                                <i class="fa fa-arrow-left"></i> Batal
-                            </a>
+                            <button type="submit" class="btn btn-primary" style="border-radius: 25px;"><i class="fa fa-paper-plane"></i> Posting</button>
+                            <a href="<?= base_url('home'); ?>" class="btn btn-default" style="border-radius: 25px;"><i class="fa fa-arrow-left"></i> Batal</a>
                         </div>
 
                     <?php echo form_close() ?>
