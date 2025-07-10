@@ -10,6 +10,9 @@ class Posts extends CI_Controller {
     }
 	public function index()
 	{
+		if(!$this->session->userdata('apps_id')){
+			redirect("login");
+		}
 		//digunakan untuk menampilkan mypost
 	}
 	public function get_data(){
@@ -17,8 +20,11 @@ class Posts extends CI_Controller {
 		echo json_encode($data);
 	}
 	public function likepost(){
+		if(!$this->session->userdata('apps_id')){
+			redirect("login");
+		}
 		$post_id = $this->input->post('post_id');
-		$user_id = 1;//nanti pakai session
+		$user_id = $this->session->userdata('apps_id');//userid
 
 		// Cek apakah sudah like sebelumnya
 		$cek = $this->db->get_where('tbl_like', ['post_id' => $post_id, 'user_id' => $user_id])->row();

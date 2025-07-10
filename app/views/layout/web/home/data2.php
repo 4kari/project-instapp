@@ -59,6 +59,11 @@ function loadPosts() {
                         </div>
                     </div>
                 </div>
+                <a href="<?= base_url('posts'); ?>" 
+                    style="position: fixed; bottom: 20px; right: 20px; border-radius: 50%; padding: 15px 17px; background: #007bff; color: #fff; font-size: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                    <i class="fa fa-plus"></i>
+                </a>
+
                 `;
             });
 
