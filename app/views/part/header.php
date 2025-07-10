@@ -109,8 +109,19 @@
           </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse navbar-right" style="margin-top: 15px;">
-          <a href="<?php echo base_url() ?>login/" class="btn btn-default" style="border-radius: 25px"><i class="fa fa-sign-in"></i> Masuk</a>
-          <a href="<?php echo base_url() ?>register/" class="btn btn-success" style="border-radius: 25px"><i class="fa fa-user-plus"></i> Daftar</a>
-        </div><!--/.navbar-collapse -->
+			<?php if (!$this->session->userdata('apps_username')) { ?>
+				<a href="<?php echo base_url() ?>login/" class="btn btn-default" style="border-radius: 25px">
+					<i class="fa fa-sign-in"></i> Masuk
+				</a>
+				<a href="<?php echo base_url() ?>register/" class="btn btn-success" style="border-radius: 25px">
+					<i class="fa fa-user-plus"></i> Daftar
+				</a>
+			<?php } else { ?>
+				<span style="margin-right: 10px;">👋 Hai, <?php echo $this->session->userdata('apps_username'); ?></span>
+				<a href="<?php echo base_url() ?>login/logout/" class="btn btn-danger" style="border-radius: 25px">
+					<i class="fa fa-sign-out"></i> Keluar
+				</a>
+			<?php } ?>
+		</div>
       </div>
     </nav>	
