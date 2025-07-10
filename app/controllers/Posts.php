@@ -34,6 +34,9 @@ class Posts extends CI_Controller {
 		}
 	}
 	public function commentpost() {
+		if(!$this->session->userdata('apps_id')){
+			redirect("login");
+		}
 		$post_id = $this->input->post('post_id');
 		$comment = $this->input->post('comment');
 		$user_id = $this->session->userdata('apps_id'); // Ganti dengan session user
