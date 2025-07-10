@@ -36,7 +36,7 @@ class Posts extends CI_Controller {
 	public function commentpost() {
 		$post_id = $this->input->post('post_id');
 		$comment = $this->input->post('comment');
-		$user_id = 1; // Ganti dengan session user
+		$user_id = $this->session->userdata('apps_id'); // Ganti dengan session user
 
 		$this->db->insert('tbl_comment', [
 			'post_id' => $post_id,
