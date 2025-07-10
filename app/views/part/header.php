@@ -3,7 +3,7 @@
 <head>
 	<title><?php echo $title ?></title>
 	<!-- meta tag -->
-	<link rel="icon" href="http://www.transparentpng.com/download/logo-instagram/YfpFOL-logo-instagram-free-transparent.png">
+	<link rel="icon" href="https://static.cdninstagram.com/rsrc.php/v4/yI/r/VsNE-OHk_8a.png">
 	<!-- style sheet -->
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
